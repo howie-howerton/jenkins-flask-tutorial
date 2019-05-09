@@ -7,6 +7,8 @@ pipeline {
     CONTAINER_REGISTRY_CREDENTIALS = 'dockerhub login'
     SMART_CHECK_HOSTNAME = "a5937bcc771bd11e988371653597d57e-214315904.us-east-1.elb.amazonaws.com"
     SMART_CHECK_CREDENTIALS = "smart-check-jenkins-user"
+    KUBE_CONFIG = 'kubeconfig'
+    KUBE_YML_FILE_IN_GIT_REPO = 'flask-docker-kube.yml'
   }
 
   agent any
@@ -48,7 +50,7 @@ pipeline {
                     imageName: "$CONTAINER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
                     smartcheckHost: "$SMART_CHECK_HOSTNAME",
                     insecureSkipTLSVerify: true,
-                    smartcheckCredentialsId: "smart-check-jenkins-user",
+                    smartcheckCredentialsId: SMART_CHECK_CREDENTIALS,
                     imagePullAuth: new groovy.json.JsonBuilder([
                         username: USER,
                         password: PASSWORD,
@@ -61,14 +63,21 @@ pipeline {
 
     stage ("Deploy to Cluster") {
       steps{
-        input 'Deploy to Kubernetes?'
-        milestone(1)
+        //input 'Deploy to Kubernetes?'
+        //milestone(1)
         kubernetesDeploy(
-            kubeconfigId: 'kubeconfig',
-            configs: 'flask-docker-kube.yml',
+            kubeconfigId: KUBE_CONFIG,
+            configs: KUBE_YML_FILE_IN_GIT_REPO,
             enableConfigSubstitution: true
         )
       }
     }
   }
 }
+
+
+/* this
+   is a
+   multi-line comment */
+
+// this is a single line comment
