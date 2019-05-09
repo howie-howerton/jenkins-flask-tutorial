@@ -24,13 +24,13 @@ spec:
   selector:
     matchLabels:
       app: flask-docker
-    template:
-      metadata:
-        lables:
-          app: flask-docker
-      spec:
-        containers:
-        - name: flask-docker
-          image: $DOCKER_IMAGE_NAME:$BUILD_NUMBER
-          ports:
-          - containerPort: 30000
+  template:
+    metadata:
+      labels:
+        app: flask-docker
+    spec:
+      containers:
+      - name: flask-docker
+        image: $DOCKER_IMAGE_NAME:$BUILD_NUMBER
+        ports:
+        - containerPort: 30000
