@@ -6,7 +6,7 @@ pipeline {
     CONTAINER_REGISTRY = "registry.hub.docker.com"
     CONTAINER_REGISTRY_CREDENTIALS = 'dockerhub login'
     SMART_CHECK_HOSTNAME = "a5937bcc771bd11e988371653597d57e-214315904.us-east-1.elb.amazonaws.com"
-    SMART_CHECK_CREDENTIALS = smart-check-jenkins-user
+    SMART_CHECK_CREDENTIALS = "smart-check-jenkins-user"
   }
 
   agent any
