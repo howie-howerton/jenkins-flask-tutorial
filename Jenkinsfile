@@ -59,7 +59,7 @@ pipeline {
       steps{
         input 'Deploy to Kubernetes?'
         milestone(1)
-        kubenetesDeploy(
+        kubernetesDeploy(
             kubeconfigId: 'kubeconfig',
             configs: 'flask-docker-kube.yml',
             enableConfigSubstitution: true
