@@ -32,7 +32,24 @@ pipeline {
 
     stage("Smart Check Scan") {
         steps {
-            echo "test"
+            withCredentials([
+                usernamePassword([
+                    credentialsId: registryCredential,
+                    usernameVariable: "USER",
+                    passwordVariable: "PASSWORD",
+                ])             
+            ]){            
+                smartcheckScan([
+                    imageName: "registry.hub.docker.com/howiehowerton/flask-docker:latest",
+                    smartcheckHost: "a5937bcc771bd11e988371653597d57e-214315904.us-east-1.elb.amazonaws.com",
+                    insecureSkipTLSVerify: true,
+                    smartcheckCredentialsId: "smart-check-jenkins-user",
+                    imagePullAuth: new groovy.json.JsonBuilder([
+                        username: USER,
+                        password: PASSWORD,
+                        ]).toString(),
+                    ])
+                }
             }
         }
         
