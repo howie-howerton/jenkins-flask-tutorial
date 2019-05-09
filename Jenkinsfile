@@ -2,6 +2,7 @@ pipeline {
   environment {
     registry = "howiehowerton/flask-docker"
     registryCredential = 'dockerhub login'
+    DOCKER_IMAGE_NAME = 'howiehowerton/flask-docker'
   }
 
   agent any
@@ -56,7 +57,13 @@ pipeline {
 
     stage ("Deploy to Cluster") {
       steps{
-        echo "Function to be added at a later date."
+        input 'Deploy to Kubernetes?'
+        milestone(1)
+        kubenetesDeploy{
+            kubeconfigId: 'kubeconfig',
+            configs: 'flask-docker-kube.yml',
+            enableConfigSubstitution: true
+        }
       }
     }
   }
