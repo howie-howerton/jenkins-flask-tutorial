@@ -1,5 +1,6 @@
 pipeline {
   environment {
+    GIT_REPO = "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
     registry = "howiehowerton/flask-docker"
     registryCredential = 'dockerhub login'
     DOCKER_IMAGE_NAME = 'howiehowerton/flask-docker'
@@ -9,7 +10,7 @@ pipeline {
   stages {
     stage("Cloning Git Repo") {
       steps {
-        git "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
+        git "$GIT_REPO"
       }
     }
 
