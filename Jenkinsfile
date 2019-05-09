@@ -1,7 +1,12 @@
 pipeline {
   
   environment {
-    // Set the values for the following variables to match your environment
+    /*
+    IMPORTANT!!! - Set the values for the following variables to match your environment.
+    
+    Note:  You must set up Jenkins credentials for the CONTAINER_REGISTRY_CREDENTIALS, SMART_CHECK_CREDENTIALS and KUBE_CONFIG variables.
+    
+    */
     GIT_REPO =                       "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
     DOCKER_IMAGE_NAME =              "howiehowerton/flask-docker"
     CONTAINER_REGISTRY =             "registry.hub.docker.com"
