@@ -2,10 +2,10 @@ pipeline {
   environment {
     // Set the values for the following variables to match your environment
     GIT_REPO = "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
-    IMAGE_BASE_NAME = "howiehowerton/flask-docker"
-    CONTAINER_REGISTRY_URL = "registry.hub.docker.com"
+    DOCKER_IMAGE_NAME = "howiehowerton/flask-docker"
+    CONTAINER_REGISTRY = "registry.hub.docker.com"
     registryCredential = 'dockerhub login'
-    DOCKER_IMAGE_NAME = 'howiehowerton/flask-docker'
+    SMART_CHECK_HOSTNAME = "a5937bcc771bd11e988371653597d57e-214315904.us-east-1.elb.amazonaws.com"
   }
 
   agent any
@@ -19,7 +19,7 @@ pipeline {
     stage("Building image") {
       steps{
         script {
-          dockerImage = docker.build('$IMAGE_BASE_NAME:$BUILD_NUMBER')
+          dockerImage = docker.build('$DOCKER_IMAGE_NAME:$BUILD_NUMBER')
         }
       }
     }
@@ -27,7 +27,7 @@ pipeline {
     stage("Stage Image") {
       steps{
         script {
-          docker.withRegistry('https://$CONTAINER_REGISTRY_URL', registryCredential ) {
+          docker.withRegistry('https://$CONTAINER_REGISTRY', registryCredential ) {
             dockerImage.push()
           }
         }
@@ -44,8 +44,8 @@ pipeline {
                 ])             
             ]){            
                 smartcheckScan([
-                    imageName: "registry.hub.docker.com/howiehowerton/flask-docker:$BUILD_NUMBER",
-                    smartcheckHost: "a5937bcc771bd11e988371653597d57e-214315904.us-east-1.elb.amazonaws.com",
+                    imageName: "$CONTAINER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
+                    smartcheckHost: "$SMART_CHECK_HOSTNAME",
                     insecureSkipTLSVerify: true,
                     smartcheckCredentialsId: "smart-check-jenkins-user",
                     imagePullAuth: new groovy.json.JsonBuilder([
