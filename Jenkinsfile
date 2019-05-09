@@ -4,8 +4,9 @@ pipeline {
     GIT_REPO = "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
     DOCKER_IMAGE_NAME = "howiehowerton/flask-docker"
     CONTAINER_REGISTRY = "registry.hub.docker.com"
-    registryCredential = 'dockerhub login'
+    CONTAINER_REGISTRY_CREDENTIALS = 'dockerhub login'
     SMART_CHECK_HOSTNAME = "a5937bcc771bd11e988371653597d57e-214315904.us-east-1.elb.amazonaws.com"
+    SMART_CHECK_CREDENTIALS = smart-check-jenkins-user
   }
 
   agent any
@@ -27,7 +28,7 @@ pipeline {
     stage("Stage Image") {
       steps{
         script {
-          docker.withRegistry('https://$CONTAINER_REGISTRY', registryCredential ) {
+          docker.withRegistry('https://$CONTAINER_REGISTRY', CONTAINER_REGISTRY_CREDENTIALS ) {
             dockerImage.push()
           }
         }
@@ -38,7 +39,7 @@ pipeline {
         steps {
             withCredentials([
                 usernamePassword([
-                    credentialsId: registryCredential,
+                    credentialsId: CONTAINER_REGISTRY_CREDENTIALS,
                     usernameVariable: "USER",
                     passwordVariable: "PASSWORD",
                 ])             
