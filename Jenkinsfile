@@ -16,7 +16,7 @@ pipeline {
     stage("Building image") {
       steps{
         script {
-          dockerImage = docker.build('howiehowerton/flask-docker:latest')
+          dockerImage = docker.build('howiehowerton/flask-docker:$BUILD_NUMBER')
         }
       }
     }
@@ -41,7 +41,7 @@ pipeline {
                 ])             
             ]){            
                 smartcheckScan([
-                    imageName: "registry.hub.docker.com/howiehowerton/flask-docker:latest",
+                    imageName: "registry.hub.docker.com/howiehowerton/flask-docker:$BUILD_NUMBER",
                     smartcheckHost: "a5937bcc771bd11e988371653597d57e-214315904.us-east-1.elb.amazonaws.com",
                     insecureSkipTLSVerify: true,
                     smartcheckCredentialsId: "smart-check-jenkins-user",
