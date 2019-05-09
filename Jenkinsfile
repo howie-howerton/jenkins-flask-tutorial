@@ -1,7 +1,9 @@
 pipeline {
   environment {
+    // Set the values for the following variables to match your environment
     GIT_REPO = "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
-    registry = "howiehowerton/flask-docker"
+    IMAGE_BASE_NAME = "howiehowerton/flask-docker"
+    CONTAINER_REGISTRY_URL = "https://registry.hub.docker.com"
     registryCredential = 'dockerhub login'
     DOCKER_IMAGE_NAME = 'howiehowerton/flask-docker'
   }
@@ -17,7 +19,7 @@ pipeline {
     stage("Building image") {
       steps{
         script {
-          dockerImage = docker.build('howiehowerton/flask-docker:$BUILD_NUMBER')
+          dockerImage = docker.build('$IMAGE_BASE_NAME:$BUILD_NUMBER')
         }
       }
     }
@@ -25,7 +27,7 @@ pipeline {
     stage("Stage Image") {
       steps{
         script {
-          docker.withRegistry('https://registry.hub.docker.com', registryCredential ) {
+          docker.withRegistry('$CONTAINER_REGISTRY_URL', registryCredential ) {
             dockerImage.push()
           }
         }
