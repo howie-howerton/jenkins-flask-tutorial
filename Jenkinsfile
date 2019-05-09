@@ -1,14 +1,15 @@
 pipeline {
+  
   environment {
     // Set the values for the following variables to match your environment
-    GIT_REPO = "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
-    DOCKER_IMAGE_NAME = "howiehowerton/flask-docker"
-    CONTAINER_REGISTRY = "registry.hub.docker.com"
-    CONTAINER_REGISTRY_CREDENTIALS = 'dockerhub login'
-    SMART_CHECK_HOSTNAME = "a5937bcc771bd11e988371653597d57e-214315904.us-east-1.elb.amazonaws.com"
-    SMART_CHECK_CREDENTIALS = "smart-check-jenkins-user"
-    KUBE_CONFIG = 'kubeconfig'
-    KUBE_YML_FILE_IN_GIT_REPO = 'flask-docker-kube.yml'
+    GIT_REPO =                       "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
+    DOCKER_IMAGE_NAME =              "howiehowerton/flask-docker"
+    CONTAINER_REGISTRY =             "registry.hub.docker.com"
+    CONTAINER_REGISTRY_CREDENTIALS = "dockerhub login"
+    SMART_CHECK_HOSTNAME =           "a5937bcc771bd11e988371653597d57e-214315904.us-east-1.elb.amazonaws.com"
+    SMART_CHECK_CREDENTIALS =        "smart-check-jenkins-user"
+    KUBE_CONFIG =                    "kubeconfig"
+    KUBE_YML_FILE_IN_GIT_REPO =      "flask-docker-kube.yml"
   }
 
   agent any
