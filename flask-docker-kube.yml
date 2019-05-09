@@ -8,7 +8,7 @@ spec:
     app:  flask-docker
   ports:
   - protocol: TCP
-    port: 30080
+    port: 5000
     nodePort: 30080
 
 ---
@@ -33,4 +33,4 @@ spec:
       - name: flask-docker
         image: $DOCKER_IMAGE_NAME:latest
         ports:
-        - containerPort: 30080
+        - containerPort: 5000
