@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM python:3.7-alpine
 LABEL maintainer="howie_howerton@trendmicro.com"
 RUN apt-get update -y
 RUN apt upgrade -y
