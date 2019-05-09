@@ -31,6 +31,6 @@ spec:
     spec:
       containers:
       - name: flask-docker
-        image: howiehowerton/flask-docker:latest
+        image: howiehowerton/flask-docker:$BUILD_NUMBER
         ports:
         - containerPort: 5000
