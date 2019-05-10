@@ -60,6 +60,7 @@ pipeline {
                     imagePullAuth: new groovy.json.JsonBuilder([
                         username: USER,
                         password: PASSWORD,
+                    ]).toString(),
                     findingsThreshold: new groovy.json.JsonBuilder([
                         malware: 0,
                         vulnerabilities: [
@@ -77,9 +78,9 @@ pipeline {
                             critical: 0,
                             high: 0,
                         ],
-                        ]).toString(),
-                    ])
-                }
+                    ]).toString(),
+                ])
+              }
             }
         }
         
