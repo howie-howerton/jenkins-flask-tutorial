@@ -71,7 +71,7 @@ pipeline {
                         contents: [
                             defcon1: 0,
                             critical: 0,
-                            high: 0,
+                            high: 5,
                         ],
                         checklists: [
                             defcon1: 0,
