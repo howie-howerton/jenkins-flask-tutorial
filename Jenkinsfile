@@ -46,13 +46,13 @@ pipeline {
 
     stage("Smart Check Scan") {
         steps {
-            withCredentials([
+            /*withCredentials([
                 usernamePassword([
                     credentialsId: CONTAINER_REGISTRY_CREDENTIALS,
                     usernameVariable: "USER",
                     passwordVariable: "PASSWORD",
                 ])             
-            ])
+            ])*/
             {            
                 smartcheckScan([
                     imageName: "$CONTAINER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
