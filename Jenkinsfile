@@ -38,7 +38,7 @@ pipeline {
         script {
           docker.withRegistry('https://$CONTAINER_REGISTRY', 'ecr:us-east-1:aws-credentials') {
           //dockerImage.push()
-          docker.image('DOCKER_IMAGE_NAME:$BUILD_NUMBER').push()
+          docker.image('$DOCKER_IMAGE_NAME:$BUILD_NUMBER').push()
           }
         }
       }
