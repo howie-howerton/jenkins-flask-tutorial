@@ -10,7 +10,7 @@ pipeline {
     GIT_REPO =                       "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
     DOCKER_IMAGE_NAME =              "terraform-eks-demo"
     CONTAINER_REGISTRY =             "756757677343.dkr.ecr.us-east-1.amazonaws.com"
-    CONTAINER_REGISTRY_CREDENTIALS = "aws-credentials"
+    CONTAINER_REGISTRY_CREDENTIALS = "aws-credentials2"
     SMART_CHECK_HOSTNAME =           "a463b12957bee11e9918a129842aafef-2100414139.us-east-1.elb.amazonaws.com"
     SMART_CHECK_CREDENTIALS =        "smart-check-jenkins-user"
     KUBE_CONFIG =                    "kubeconfig"
