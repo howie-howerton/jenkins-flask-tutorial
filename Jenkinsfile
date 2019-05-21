@@ -8,7 +8,7 @@ pipeline {
     
     */
     GIT_REPO =                       "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
-    DOCKER_IMAGE_NAME =              "756757677343.dkr.ecr.us-east-1.amazonaws.com/flask-docker"
+    DOCKER_IMAGE_NAME =              "756757677343.dkr.ecr.us-east-1.amazonaws.com/terraform-eks-demo"
     CONTAINER_REGISTRY =             "756757677343.dkr.ecr.us-east-1.amazonaws.com"
     CONTAINER_REGISTRY_CREDENTIALS = "aws-credentials"
     SMART_CHECK_HOSTNAME =           "a5937bcc771bd11e988371653597d57e-214315904.us-east-1.elb.amazonaws.com"
