@@ -8,8 +8,8 @@ pipeline {
     
     */
     GIT_REPO =                       "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
-    DOCKER_IMAGE_NAME =              "howiehowerton/flask-docker"
-    CONTAINER_REGISTRY =             "registry.hub.docker.com"
+    DOCKER_IMAGE_NAME =              "756757677343.dkr.ecr.us-east-1.amazonaws.com/flask-docker"
+    CONTAINER_REGISTRY =             "756757677343.dkr.ecr.us-east-1.amazonaws.com"
     CONTAINER_REGISTRY_CREDENTIALS = "dockerhub login"
     SMART_CHECK_HOSTNAME =           "a5937bcc771bd11e988371653597d57e-214315904.us-east-1.elb.amazonaws.com"
     SMART_CHECK_CREDENTIALS =        "smart-check-jenkins-user"
@@ -36,7 +36,7 @@ pipeline {
     stage("Stage Image") {
       steps{
         script {
-          docker.withRegistry('https://$CONTAINER_REGISTRY', CONTAINER_REGISTRY_CREDENTIALS ) {
+          docker.withRegistry('https://$CONTAINER_REGISTRY', 'ecr:us-east-1') {
             dockerImage.push()
           }
         }
@@ -45,13 +45,14 @@ pipeline {
 
     stage("Smart Check Scan") {
         steps {
-            withCredentials([
+            /*withCredentials([
                 usernamePassword([
                     credentialsId: CONTAINER_REGISTRY_CREDENTIALS,
                     usernameVariable: "USER",
                     passwordVariable: "PASSWORD",
                 ])             
-            ]){            
+            ])*/
+            {            
                 smartcheckScan([
                     imageName: "$CONTAINER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
                     smartcheckHost: "$SMART_CHECK_HOSTNAME",
