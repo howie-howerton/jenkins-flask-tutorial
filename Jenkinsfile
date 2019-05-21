@@ -46,22 +46,13 @@ pipeline {
 
     stage("Smart Check Scan") {
         steps {
-            withCredentials([[
-            $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: 'aws-credentials',
-            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-        ]])
-              
-              
-              
-             /*withCredentials([
+            withCredentials([
                 usernamePassword([
                     credentialsId: CONTAINER_REGISTRY_CREDENTIALS,
                     usernameVariable: "USER",
                     passwordVariable: "PASSWORD",
                 ])             
-            ])*/
+            ])
             {
                 smartcheckScan([
                     imageName: "$CONTAINER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
@@ -69,10 +60,8 @@ pipeline {
                     insecureSkipTLSVerify: true,
                     smartcheckCredentialsId: SMART_CHECK_CREDENTIALS,
                     imagePullAuth: new groovy.json.JsonBuilder([
-                        username: AWS_ACCESS_KEY_ID,
-                        password: AWS_SECRET_ACCESS_KEY,
-                        /*username: USER,
-                        password: PASSWORD,*/
+                        username: USER,
+                        password: PASSWORD,
                     ]).toString(),
                     findingsThreshold: new groovy.json.JsonBuilder([
                         malware: 0,
