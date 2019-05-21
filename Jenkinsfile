@@ -46,23 +46,23 @@ pipeline {
 
     stage("Smart Check Scan") {
         steps {
-            /*withCredentials([
+            withCredentials([
                 usernamePassword([
                     credentialsId: CONTAINER_REGISTRY_CREDENTIALS,
                     usernameVariable: "USER",
                     passwordVariable: "PASSWORD",
                 ])             
             ])
-            {*/  
+            {
                 smartcheckScan([
                     imageName: "$CONTAINER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
                     smartcheckHost: "$SMART_CHECK_HOSTNAME",
                     insecureSkipTLSVerify: true,
                     smartcheckCredentialsId: SMART_CHECK_CREDENTIALS,
-                    /*imagePullAuth: new groovy.json.JsonBuilder([
+                    imagePullAuth: new groovy.json.JsonBuilder([
                         username: USER,
                         password: PASSWORD,
-                    ]).toString(),*/
+                    ]).toString(),
                     findingsThreshold: new groovy.json.JsonBuilder([
                         malware: 0,
                         vulnerabilities: [
@@ -99,7 +99,7 @@ pipeline {
       }
     }
   }
-//}
+}
 
 
 /* this
