@@ -10,7 +10,7 @@ pipeline {
     GIT_REPO =                       "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
     DOCKER_IMAGE_NAME =              "756757677343.dkr.ecr.us-east-1.amazonaws.com/flask-docker"
     CONTAINER_REGISTRY =             "756757677343.dkr.ecr.us-east-1.amazonaws.com"
-    CONTAINER_REGISTRY_CREDENTIALS = "dockerhub login"
+    CONTAINER_REGISTRY_CREDENTIALS = "aws-credentials"
     SMART_CHECK_HOSTNAME =           "a5937bcc771bd11e988371653597d57e-214315904.us-east-1.elb.amazonaws.com"
     SMART_CHECK_CREDENTIALS =        "smart-check-jenkins-user"
     KUBE_CONFIG =                    "kubeconfig"
@@ -45,13 +45,13 @@ pipeline {
 
     stage("Smart Check Scan") {
         steps {
-            /*withCredentials([
+            withCredentials([
                 usernamePassword([
                     credentialsId: CONTAINER_REGISTRY_CREDENTIALS,
                     usernameVariable: "USER",
                     passwordVariable: "PASSWORD",
                 ])             
-            ])*/
+            ])
             {            
                 smartcheckScan([
                     imageName: "$CONTAINER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
