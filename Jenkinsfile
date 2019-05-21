@@ -8,7 +8,7 @@ pipeline {
     
     */
     GIT_REPO =                       "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
-    DOCKER_IMAGE_NAME =              "756757677343.dkr.ecr.us-east-1.amazonaws.com/terraform-eks-demo"
+    DOCKER_IMAGE_NAME =              "terraform-eks-demo"
     CONTAINER_REGISTRY =             "756757677343.dkr.ecr.us-east-1.amazonaws.com"
     CONTAINER_REGISTRY_CREDENTIALS = "aws-credentials"
     SMART_CHECK_HOSTNAME =           "a5937bcc771bd11e988371653597d57e-214315904.us-east-1.elb.amazonaws.com"
@@ -38,7 +38,7 @@ pipeline {
         script {
           docker.withRegistry('https://$CONTAINER_REGISTRY', 'ecr:us-east-1:aws-credentials') {
           //dockerImage.push()
-          docker.image('terraform-eks-demo:$BUILD_NUMBER').push()
+          docker.image('DOCKER_IMAGE_NAME:$BUILD_NUMBER').push()
           }
         }
       }
