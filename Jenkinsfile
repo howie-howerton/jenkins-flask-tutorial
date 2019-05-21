@@ -11,7 +11,7 @@ pipeline {
     DOCKER_IMAGE_NAME =              "terraform-eks-demo"
     CONTAINER_REGISTRY =             "756757677343.dkr.ecr.us-east-1.amazonaws.com"
     CONTAINER_REGISTRY_CREDENTIALS = "aws-credentials"
-    SMART_CHECK_HOSTNAME =           "a5937bcc771bd11e988371653597d57e-214315904.us-east-1.elb.amazonaws.com"
+    SMART_CHECK_HOSTNAME =           "a463b12957bee11e9918a129842aafef-2100414139.us-east-1.elb.amazonaws.com"
     SMART_CHECK_CREDENTIALS =        "smart-check-jenkins-user"
     KUBE_CONFIG =                    "kubeconfig"
     KUBE_YML_FILE_IN_GIT_REPO =      "flask-docker-kube.yml"
