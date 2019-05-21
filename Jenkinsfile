@@ -36,7 +36,7 @@ pipeline {
     stage("Stage Image") {
       steps{
         script {
-          docker.withRegistry('https://$CONTAINER_REGISTRY', 'ecr:us-east-1') {
+          docker.withRegistry('https://$CONTAINER_REGISTRY', 'ecr:us-east-1:aws-credentials') {
             dockerImage.push()
           }
         }
