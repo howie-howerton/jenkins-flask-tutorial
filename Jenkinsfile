@@ -52,8 +52,8 @@ pipeline {
                     usernameVariable: "USER",
                     passwordVariable: "PASSWORD",
                 ])             
-            ])*/
-            {            
+            ])
+            {*/  
                 smartcheckScan([
                     imageName: "$CONTAINER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
                     smartcheckHost: "$SMART_CHECK_HOSTNAME",
