@@ -59,10 +59,21 @@ pipeline {
                     smartcheckHost: "$SMART_CHECK_HOSTNAME",
                     insecureSkipTLSVerify: true,
                     smartcheckCredentialsId: SMART_CHECK_CREDENTIALS,
-                    imagePullAuth: new groovy.json.JsonBuilder([
+                    /*imagePullAuth: new groovy.json.JsonBuilder([
                         username: USER,
                         password: PASSWORD,
-                    ]).toString(),
+                    ]).toString(),*/
+                    imagePullAuth: new groovy.json.JsonBuilder([
+                      aws:[
+                        region: "us-east-1",
+                        accessKeyID: User,
+                        secretAccessKey: Password,
+                        role: "arn:aws:iam::756757677343:role/ECR_Policy",
+                        externalID: "756757677343",
+                        roleSessionName: "DeepSecuritySmartCheck",
+                        registry: "756757677343",
+                      ],
+                    ]).toString()
                     findingsThreshold: new groovy.json.JsonBuilder([
                         malware: 0,
                         vulnerabilities: [
