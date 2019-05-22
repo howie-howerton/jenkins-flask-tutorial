@@ -66,8 +66,8 @@ pipeline {
                     imagePullAuth: new groovy.json.JsonBuilder([
                       aws:[
                         region: "us-east-1",
-                        accessKeyID: User,
-                        secretAccessKey: Password,
+                        accessKeyID: USER,
+                        secretAccessKey: PASSWORD,
                         role: "arn:aws:iam::756757677343:role/ECR_Policy",
                         externalID: "756757677343",
                         roleSessionName: "DeepSecuritySmartCheck",
