@@ -73,7 +73,7 @@ pipeline {
                         roleSessionName: "DeepSecuritySmartCheck",
                         registry: "756757677343",
                       ],
-                    ]).toString()
+                    ]).toString(),
                     findingsThreshold: new groovy.json.JsonBuilder([
                         malware: 0,
                         vulnerabilities: [
