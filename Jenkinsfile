@@ -43,7 +43,7 @@ pipeline {
         }
       }
     }
-
+/*
     stage("Smart Check Scan") {
         steps {
             withCredentials([
@@ -59,10 +59,10 @@ pipeline {
                     smartcheckHost: "$SMART_CHECK_HOSTNAME",
                     insecureSkipTLSVerify: true,
                     smartcheckCredentialsId: SMART_CHECK_CREDENTIALS,
-                    /*imagePullAuth: new groovy.json.JsonBuilder([
+                    imagePullAuth: new groovy.json.JsonBuilder([
                         username: USER,
                         password: PASSWORD,
-                    ]).toString(),*/
+                    ]).toString(),
                     imagePullAuth: new groovy.json.JsonBuilder([
                       aws:[
                         region: "us-east-1",
@@ -96,7 +96,7 @@ pipeline {
               }
             }
         }
-        
+  */      
 
     stage ("Deploy to Cluster") {
       steps{
