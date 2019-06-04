@@ -38,7 +38,7 @@ pipeline {
         script {
           //docker.withRegistry('https://$CONTAINER_REGISTRY', 'ecr:us-east-1:aws-credentials') {
           // Workaround for the ECR plugin crashing out...
-          sh("eval \$(aws ecr get-login --no-include-email | sed 's|https://|| (https://||)')")
+          sh("eval \$(aws ecr get-login --no-include-email --region us-east-1 | sed 's|https://|| (https://||)')")
           dockerImage.push()
           //docker.image('$DOCKER_IMAGE_NAME:$BUILD_NUMBER').push()
           //}
