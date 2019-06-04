@@ -104,11 +104,13 @@ pipeline {
       steps{
         //input 'Deploy to Kubernetes?'
         //milestone(1)
+        /*
         kubernetesDeploy(
             kubeconfigId: KUBE_CONFIG,
             configs: KUBE_YML_FILE_IN_GIT_REPO,
             enableConfigSubstitution: true
-        )
+        )*/
+        sh "kubectl apply -f flask-docker-kube.yml"
       }
     }
   }
