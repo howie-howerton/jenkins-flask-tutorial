@@ -105,7 +105,7 @@ pipeline {
         input 'Deploy to Kubernetes?'
         milestone(1)
         kubernetesDeploy(
-            kubeconfigId: kubeconfig,
+            kubeconfigId: KUBE_CONFIG,
             configs: KUBE_YML_FILE_IN_GIT_REPO,
             enableConfigSubstitution: true
         )
