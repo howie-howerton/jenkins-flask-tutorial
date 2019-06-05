@@ -8,10 +8,10 @@ pipeline {
     
     */
     GIT_REPO =                       "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
-    DOCKER_IMAGE_NAME =              "terraform-eks-demo"
-    CONTAINER_REGISTRY =             "756757677343.dkr.ecr.us-east-1.amazonaws.com"
-    CONTAINER_REGISTRY_CREDENTIALS = "aws-credentials"
-    SMART_CHECK_HOSTNAME =           "a463b12957bee11e9918a129842aafef-2100414139.us-east-1.elb.amazonaws.com"
+    DOCKER_IMAGE_NAME =              "howiehowerton/flask-docker"
+    CONTAINER_REGISTRY =             "registry.hub.docker.com"
+    CONTAINER_REGISTRY_CREDENTIALS = "dockerhub login"
+    SMART_CHECK_HOSTNAME =           "a5937bcc771bd11e988371653597d57e-214315904.us-east-1.elb.amazonaws.com"
     SMART_CHECK_CREDENTIALS =        "smart-check-jenkins-user"
     KUBE_CONFIG =                    "kubeconfig"
     KUBE_YML_FILE_IN_GIT_REPO =      "flask-docker-kube.yml"
@@ -28,7 +28,7 @@ pipeline {
     stage("Building image") {
       steps{
         script {
-          dockerImage = docker.build('$CONTAINER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER')
+          dockerImage = docker.build('$DOCKER_IMAGE_NAME:$BUILD_NUMBER')
         }
       }
     }
@@ -36,16 +36,13 @@ pipeline {
     stage("Stage Image") {
       steps{
         script {
-          docker.withRegistry('https://$CONTAINER_REGISTRY', 'ecr:us-east-1:aws-credentials') {
-          // Workaround for the ECR plugin crashing out...
-          sh("eval \$(aws ecr get-login --no-include-email --region us-east-1 | sed 's|https://|| (https://||)')")
-          dockerImage.push()
-          //docker.image('$DOCKER_IMAGE_NAME:$BUILD_NUMBER').push()
+          docker.withRegistry('https://$CONTAINER_REGISTRY', CONTAINER_REGISTRY_CREDENTIALS ) {
+            dockerImage.push()
           }
         }
       }
     }
-/*
+
     stage("Smart Check Scan") {
         steps {
             withCredentials([
@@ -54,8 +51,7 @@ pipeline {
                     usernameVariable: "USER",
                     passwordVariable: "PASSWORD",
                 ])             
-            ])
-            {
+            ]){            
                 smartcheckScan([
                     imageName: "$CONTAINER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
                     smartcheckHost: "$SMART_CHECK_HOSTNAME",
@@ -64,17 +60,6 @@ pipeline {
                     imagePullAuth: new groovy.json.JsonBuilder([
                         username: USER,
                         password: PASSWORD,
-                    ]).toString(),
-                    imagePullAuth: new groovy.json.JsonBuilder([
-                      aws:[
-                        region: "us-east-1",
-                        accessKeyID: USER,
-                        secretAccessKey: PASSWORD,
-                        role: "arn:aws:iam::756757677343:role/ECR_Policy",
-                        externalID: "756757677343",
-                        roleSessionName: "DeepSecuritySmartCheck",
-                        registry: "756757677343",
-                      ],
                     ]).toString(),
                     findingsThreshold: new groovy.json.JsonBuilder([
                         malware: 0,
@@ -98,7 +83,7 @@ pipeline {
               }
             }
         }
-  */      
+        
 
     stage ("Deploy to Cluster") {
       steps{
@@ -113,10 +98,3 @@ pipeline {
     }
   }
 }
-
-          /*sh "/snap/bin/kubectl apply -f flask-docker-kube.yml"*/
-/* this
-   is a
-   multi-line comment */
-
-// this is a single line comment
