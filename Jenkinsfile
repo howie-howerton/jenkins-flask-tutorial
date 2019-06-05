@@ -102,8 +102,8 @@ pipeline {
 
     stage ("Deploy to Cluster") {
       steps{
-        input 'Deploy to Kubernetes?'
-        milestone(1)
+        //input 'Deploy to Kubernetes?'
+        //milestone(1)
         kubernetesDeploy(
             kubeconfigId: KUBE_CONFIG,
             configs: KUBE_YML_FILE_IN_GIT_REPO,
