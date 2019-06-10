@@ -11,10 +11,10 @@ pipeline {
     DOCKER_IMAGE_NAME =              "howiehowerton/flask-docker"
     CONTAINER_REGISTRY =             "registry.hub.docker.com"
     CONTAINER_REGISTRY_CREDENTIALS = "dockerhub login"
-    SMART_CHECK_HOSTNAME =           "a6e718a96879211e98a911298683af54-1813553788.us-east-1.elb.amazonaws.com"
+    SMART_CHECK_HOSTNAME =           "aa7a476758bcb11e9a412026a08581f7-671392830.us-east-1.elb.amazonaws.com"
     SMART_CHECK_CREDENTIALS =        "smart-check-jenkins-user"
-    KUBE_CONFIG =                    "kubeconfig"
-    KUBE_YML_FILE_IN_GIT_REPO =      "flask-docker-kube.yml"
+    //KUBE_CONFIG =                    "kubeconfig"
+   // KUBE_YML_FILE_IN_GIT_REPO =      "flask-docker-kube.yml"
   }
 
   agent any
@@ -89,10 +89,10 @@ pipeline {
       steps{
         //input 'Deploy to Kubernetes?'
         //milestone(1)
-        kubernetesDeploy(
-            kubeconfigId: KUBE_CONFIG,
-            configs: KUBE_YML_FILE_IN_GIT_REPO,
-            enableConfigSubstitution: true
+        //kubernetesDeploy(
+         //   kubeconfigId: KUBE_CONFIG,
+         //   configs: KUBE_YML_FILE_IN_GIT_REPO,
+         //   enableConfigSubstitution: true
         )
       }
     }
