@@ -10,7 +10,7 @@ pipeline {
     GIT_REPO =                       "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
     DOCKER_IMAGE_NAME =              "howiehowerton/flask-docker"
     CONTAINER_REGISTRY =             "registry.hub.docker.com"
-    CONTAINER_REGISTRY_CREDENTIALS = "dockerhub login"
+    CONTAINER_REGISTRY_CREDENTIALS = "dockerhub_login"
     SMART_CHECK_HOSTNAME =           "a76f98c60d34511e9a00e026c7e981e3-620096874.us-east-1.elb.amazonaws.com"
     SMART_CHECK_CREDENTIALS =        "smart-check-jenkins-user"
     //KUBE_CONFIG =                    "kubeconfig"
