@@ -87,7 +87,8 @@ pipeline {
 
     stage ("Deploy to Cluster") {
       steps{
-        input 'Deploy to Kubernetes?'
+        echo "Deploying to Cluster..."
+        //input 'Deploy to Kubernetes?'
         //milestone(1)
         //kubernetesDeploy(
          //   kubeconfigId: KUBE_CONFIG,
