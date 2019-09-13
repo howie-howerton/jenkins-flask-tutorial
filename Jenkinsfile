@@ -17,9 +17,7 @@ pipeline {
    // KUBE_YML_FILE_IN_GIT_REPO =      "flask-docker-kube.yml"
   }
 
-  agent  {
-        docker { image 'node:7-alpine' }
-    }
+  agent  any
   stages {
     stage("Cloning Git Repo") {
       steps {
