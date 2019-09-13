@@ -11,7 +11,7 @@ pipeline {
     DOCKER_IMAGE_NAME =              "howiehowerton/flask-docker"
     CONTAINER_REGISTRY =             "registry.hub.docker.com"
     CONTAINER_REGISTRY_CREDENTIALS = "dockerhub_login"
-    SMART_CHECK_HOSTNAME =           "a76f98c60d34511e9a00e026c7e981e3-620096874.us-east-1.elb.amazonaws.com"
+    SMART_CHECK_HOSTNAME =           "a645f47c9d59311e9b7120246f383e95-1289210322.us-east-1.elb.amazonaws.com"
     SMART_CHECK_CREDENTIALS =        "smart-check-jenkins-user"
     //KUBE_CONFIG =                    "kubeconfig"
    // KUBE_YML_FILE_IN_GIT_REPO =      "flask-docker-kube.yml"
