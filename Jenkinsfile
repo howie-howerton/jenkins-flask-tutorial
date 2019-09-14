@@ -37,7 +37,7 @@ pipeline {
       steps{
         script {
           docker.withRegistry('https://$CONTAINER_REGISTRY', 'ecr:us-east-1:ecr-credentials' ) {
-            docker.image('flask-docker:$BUILD_NUMBER').push
+            docker.image('flask-docker:$BUILD_NUMBER').push()
             //dockerImage.push()
           }
         }
