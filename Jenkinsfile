@@ -8,7 +8,7 @@ pipeline {
     
     */
     GIT_REPO =                       "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
-    DOCKER_IMAGE_NAME =              "756757677343.dkr.ecr.us-east-1.amazonaws.com/smartcheck/flask-docker"
+    DOCKER_IMAGE_NAME =              "756757677343.dkr.ecr.us-east-1.amazonaws.com/smartcheck"
     CONTAINER_REGISTRY =             "756757677343.dkr.ecr.us-east-1.amazonaws.com"
     CONTAINER_REGISTRY_CREDENTIALS = "ecr-credentials"
     SMART_CHECK_HOSTNAME =           "a645f47c9d59311e9b7120246f383e95-1289210322.us-east-1.elb.amazonaws.com"
