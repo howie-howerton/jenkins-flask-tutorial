@@ -45,7 +45,7 @@ pipeline {
     
     stage('Docker push') {
       steps{
-        docker.withRegistry('https://756757677343.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:ecr-credentials') {
+        docker.withRegistry('https://756757677343.dkr.ecr.us-east-1.amazonaws.com', ecr-credentials) {
           docker.image('$DOCKER_IMAGE_NAME').push('$BUILD_NUMBER')
       }
     }
