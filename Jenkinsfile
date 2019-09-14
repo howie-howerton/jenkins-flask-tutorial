@@ -47,13 +47,21 @@ pipeline {
 
     stage("Smart Check Scan") {
         steps {
-            withCredentials([
-                usernamePassword([
-                    credentialsId: CONTAINER_REGISTRY_CREDENTIALS,
-                    usernameVariable: "USER",
-                    passwordVariable: "PASSWORD",
-                ])             
-            ]){            
+ //           withCredentials([
+ //               usernamePassword([
+ //                   credentialsId: CONTAINER_REGISTRY_CREDENTIALS,
+ //                   usernameVariable: "USER",
+ //                   passwordVariable: "PASSWORD",
+ //               ])             
+ //           ])
+          
+          
+            withCredentials([[
+            $class: 'AmazonWebServicesCredentialsBinding',
+            credentialsId: CONTAINER_REGISTRY_CREDENTIALS,
+            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+            ]]){            
                 smartcheckScan([
                     imageName: "$CONTAINER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
                     smartcheckHost: "$SMART_CHECK_HOSTNAME",
