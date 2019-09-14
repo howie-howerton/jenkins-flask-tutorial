@@ -33,22 +33,17 @@ pipeline {
       }
     }
 
-//    stage("Stage Image") {
-//      steps{
-//        script {
-//          docker.withRegistry('https://$CONTAINER_REGISTRY', CONTAINER_REGISTRY_CREDENTIALS ) {
-//            dockerImage.push()
-//          }
-//        }
-//      }
-//    }
-    
-    stage('Docker push') {
+    stage("Stage Image") {
       steps{
-        docker.withRegistry('https://756757677343.dkr.ecr.us-east-1.amazonaws.com', ecr-credentials) {
-          docker.image('$DOCKER_IMAGE_NAME').push('$BUILD_NUMBER')
+        script {
+          docker.withRegistry('https://$CONTAINER_REGISTRY', CONTAINER_REGISTRY_CREDENTIALS ) {
+            dockerImage.push()
+          }
+        }
       }
     }
+    
+
     stage("Smart Check Scan") {
         steps {
             withCredentials([
