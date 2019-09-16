@@ -48,8 +48,8 @@ pipeline {
             withCredentials([
                 usernamePassword([
                     credentialsId: CONTAINER_REGISTRY_CREDENTIALS,
-                    usernameVariable: "USER",
-                    passwordVariable: "PASSWORD",
+                    usernameVariable: "ACCESS_KEY_ID",
+                    passwordVariable: "SECRET_ACCESS_KEY",
                 ])             
             ]){            
                 smartcheckScan([
@@ -58,8 +58,11 @@ pipeline {
                     insecureSkipTLSVerify: true,
                     smartcheckCredentialsId: SMART_CHECK_CREDENTIALS,
                     imagePullAuth: new groovy.json.JsonBuilder([
-                        username: USER,
-                        password: PASSWORD,
+                        aws: [ 
+                            region: "us-east-1", 
+                            accessKeyID: ACCESS_KEY_ID, 
+                            secretAccessKey: SECRET_ACCESS_KEY
+                        ]
                     ]).toString(),
                     findingsThreshold: new groovy.json.JsonBuilder([
                         malware: 0,
