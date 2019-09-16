@@ -13,6 +13,7 @@ pipeline {
     CONTAINER_REGISTRY_CREDENTIALS = "ecr-credentials"
     SMART_CHECK_HOSTNAME =           "a645f47c9d59311e9b7120246f383e95-1289210322.us-east-1.elb.amazonaws.com"
     SMART_CHECK_CREDENTIALS =        "smart-check-jenkins-user"
+    AWS_ECR_READ_CREDENTIALS =       "aws-ecr-read-credentials"
     //KUBE_CONFIG =                    "kubeconfig"
    // KUBE_YML_FILE_IN_GIT_REPO =      "flask-docker-kube.yml"
   }
@@ -47,7 +48,7 @@ pipeline {
         steps {
             withCredentials([
                 usernamePassword([
-                    credentialsId: CONTAINER_REGISTRY_CREDENTIALS,
+                    credentialsId: AWS_ECR_READ_CREDENTIALS,
                     usernameVariable: "ACCESS_KEY_ID",
                     passwordVariable: "SECRET_ACCESS_KEY",
                 ])             
