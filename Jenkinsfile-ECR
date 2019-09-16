@@ -2,17 +2,22 @@ pipeline {
   
   environment {
     /*
-    IMPORTANT!!! - Set the values for the following variables to match your environment.
+    IMPORTANT!!! - Set the values for the following environment variables to match your environment.
     
-    Note:  You must set up Jenkins credentials for the CONTAINER_REGISTRY_CREDENTIALS, SMART_CHECK_CREDENTIALS and KUBE_CONFIG variables.
+    Note:  You must set up *Jenkins credentials* for the following script variables:
+    - CONTAINER_REGISTRY_CREDENTIALS (kind: AWS Credentials)
+    - SMART_CHECK_CREDENTIALS (kind: Username with password)
+    - AWS_ECR_READ_CREDENTIALS (kind: Username with password)
+    - KUBE_CONFIG (kind: Secret text)
     
     */
     GIT_REPO =                       "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
-    DOCKER_IMAGE_NAME =              "756757677343.dkr.ecr.us-east-1.amazonaws.com/smartcheck/flask-docker"
+    DOCKER_IMAGE_NAME =              "flask-docker"
     CONTAINER_REGISTRY =             "756757677343.dkr.ecr.us-east-1.amazonaws.com"
     CONTAINER_REGISTRY_CREDENTIALS = "ecr-credentials"
     SMART_CHECK_HOSTNAME =           "a645f47c9d59311e9b7120246f383e95-1289210322.us-east-1.elb.amazonaws.com"
     SMART_CHECK_CREDENTIALS =        "smart-check-jenkins-user"
+    AWS_ECR_READ_CREDENTIALS =       "aws-ecr-read-credentials"
     //KUBE_CONFIG =                    "kubeconfig"
    // KUBE_YML_FILE_IN_GIT_REPO =      "flask-docker-kube.yml"
   }
@@ -36,7 +41,7 @@ pipeline {
     stage("Stage Image") {
       steps{
         script {
-          docker.withRegistry('https://$CONTAINER_REGISTRY', 'ecr:us-east-1:$CONTAINER_REGISTRY_CREDENTIALS' ) {
+          docker.withRegistry('https://$CONTAINER_REGISTRY', 'ecr:us-east-1:ecr-credentials' ) {
             dockerImage.push()
           }
         }
@@ -47,7 +52,7 @@ pipeline {
         steps {
             withCredentials([
                 usernamePassword([
-                    credentialsId: CONTAINER_REGISTRY_CREDENTIALS,
+                    credentialsId: AWS_ECR_READ_CREDENTIALS,
                     usernameVariable: "ACCESS_KEY_ID",
                     passwordVariable: "SECRET_ACCESS_KEY",
                 ])             
