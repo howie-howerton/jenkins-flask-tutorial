@@ -2,9 +2,13 @@ pipeline {
   
   environment {
     /*
-    IMPORTANT!!! - Set the values for the following variables to match your environment.
+    IMPORTANT!!! - Set the values for the following environment variables to match your environment.
     
-    Note:  You must set up Jenkins credentials for the CONTAINER_REGISTRY_CREDENTIALS, SMART_CHECK_CREDENTIALS and KUBE_CONFIG variables.
+    Note:  You must set up *Jenkins credentials* for the following script variables:
+    - CONTAINER_REGISTRY_CREDENTIALS (kind: AWS Credentials)
+    - SMART_CHECK_CREDENTIALS (kind: Username with password)
+    - AWS_ECR_READ_CREDENTIALS (kind: Username with password)
+    - KUBE_CONFIG (kind: Secret text)
     
     */
     GIT_REPO =                       "https://github.com/howie-howerton/jenkins-flask-tutorial.git"
