@@ -1,6 +1,7 @@
 #FROM imiell/bad-dockerfile
+FROM registry.access.redhat.com/rhel7
 #FROM ubuntu:latest
-FROM python:3.7-alpine
+#FROM python:3.7-alpine
 LABEL maintainer="howie_howerton@trendmicro.com"
 # Note:  Remove the comments for the RUN instructions below when using 'FROM ubuntu:latest'
 #RUN apt-get update -y
