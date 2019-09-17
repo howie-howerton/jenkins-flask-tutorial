@@ -1,5 +1,7 @@
 #FROM imiell/bad-dockerfile
 FROM registry.access.redhat.com/rhel7
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+RUN python get-pip.py
 #FROM ubuntu:latest
 #FROM python:3.7-alpine
 LABEL maintainer="howie_howerton@trendmicro.com"
