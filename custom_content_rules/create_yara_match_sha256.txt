@@ -1,0 +1,19 @@
+To create a custom YARA signature to match based on a SHA256 hash match, do the following:
+
+- Use the 'yaratest.yara' as a base template (MAKE A COPY!!!)
+- Create a new file (ie: match-me.txt) with some text in it.  Can be any text you like.
+- Save the file.
+- Get the SHA256 of the file:
+
+shasum -a 256 match-me.txt
+
+- Overwrite the existing SHA256 hash in the copy of the yaratest.yara file with the new hash.
+- Also update the rule name (avoid using '-' in the rule name), description and severity as desired.
+- Save the new .yara file
+- test with:
+
+yara match-me.yara match-me.txt
+
+-- A successful match will output "matchme_test match-me.txt"
+
+
