@@ -1,7 +1,8 @@
 #FROM imiell/bad-dockerfile
 #FROM registry.access.redhat.com/rhel7:7.5-409               
 #FROM ubuntu:latest
-FROM python:3.7-alpine                                        # The 'good' image :)
+FROM python:3.7-alpine
+# The python:3.7-alpine is the 'good' image :)
 
 LABEL maintainer="howie_howerton@trendmicro.com"
 
