@@ -48,6 +48,16 @@ pipeline {
       }
     }
 
+    stage("Deep Security Smart Check scan") {
+    smartcheckScan([
+        imageName: "registry.example.com/my-project/my-image",
+        smartcheckHost: "smartcheck.example.com",
+        smartcheckCredentialsId: "smartcheck-auth",
+        preregistryScan: true,
+        preregistryCredentialsId: "preregistry-auth",
+        ])
+    }
+/*
     stage("Smart Check Scan") {
         steps {
             withCredentials([
@@ -92,6 +102,7 @@ pipeline {
             }
         }
         
+*/
 
     stage ("Deploy to Cluster") {
       steps{
