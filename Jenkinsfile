@@ -58,6 +58,7 @@ pipeline {
             smartcheckCredentialsId: SMART_CHECK_CREDENTIALS,
             preregistryScan: true,
             preregistryCredentialsId: PRE_REGISTRY_AUTH,
+            insecureSkipTLSVerify: true
             ])
       }
     }
