@@ -18,6 +18,7 @@ pipeline {
     SMART_CHECK_HOSTNAME =           "internal-a5a855c9ada3e11e9994102b80a60968-1447727597.us-east-1.elb.amazonaws.com"
     SMART_CHECK_CREDENTIALS =        "smart-check-jenkins-user"
     AWS_ECR_READ_CREDENTIALS =       "aws-ecr-read-credentials"
+    PRE_REGISTRY_AUTH =              "preregistry-auth"
     //KUBE_CONFIG =                    "kubeconfig"
    // KUBE_YML_FILE_IN_GIT_REPO =      "flask-docker-kube.yml"
   }
@@ -50,11 +51,12 @@ pipeline {
 
     stage("Deep Security Smart Check scan") {
     smartcheckScan([
-        imageName: "registry.example.com/my-project/my-image",
-        smartcheckHost: "smartcheck.example.com",
-        smartcheckCredentialsId: "smartcheck-auth",
+        //imageName: "registry.example.com/my-project/my-image",
+        imageName: "$CONTAINER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
+        smartcheckHost: "$SMART_CHECK_HOSTNAME",
+        smartcheckCredentialsId: SMART_CHECK_CREDENTIALS,
         preregistryScan: true,
-        preregistryCredentialsId: "preregistry-auth",
+        preregistryCredentialsId: "PRE_REGISTRY_AUTH",
         ])
     }
 /*
