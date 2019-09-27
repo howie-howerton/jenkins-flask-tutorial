@@ -57,7 +57,7 @@ pipeline {
             smartcheckHost: "$SMART_CHECK_HOSTNAME",
             smartcheckCredentialsId: SMART_CHECK_CREDENTIALS,
             preregistryScan: true,
-            preregistryCredentialsId: "PRE_REGISTRY_AUTH",
+            preregistryCredentialsId: PRE_REGISTRY_AUTH,
             ])
       }
     }
