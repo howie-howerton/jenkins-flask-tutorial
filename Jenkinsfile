@@ -38,7 +38,7 @@ pipeline {
         }
       }
     }
-
+/*
     stage("Stage Image") {
       steps{
         script {
@@ -48,14 +48,14 @@ pipeline {
         }
       }
     }
-
+*/
     stage("Deep Security Smart Check scan") {
       steps {
         smartcheckScan([
             //imageName: "registry.example.com/my-project/my-image",
             imageName: "$CONTAINER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
             smartcheckHost: "$SMART_CHECK_HOSTNAME",
-            smartcheckCredentialsId: "SMART_CHECK_CREDENTIALS",
+            smartcheckCredentialsId: SMART_CHECK_CREDENTIALS,
             preregistryScan: true,
             preregistryCredentialsId: "PRE_REGISTRY_AUTH",
             ])
