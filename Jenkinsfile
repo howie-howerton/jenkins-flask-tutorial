@@ -38,21 +38,10 @@ pipeline {
         }
       }
     }
-/*
-    stage("Stage Image") {
-      steps{
-        script {
-          docker.withRegistry('https://$CONTAINER_REGISTRY', 'ecr:us-east-1:ecr-credentials' ) {
-            dockerImage.push()
-          }
-        }
-      }
-    }
-*/
+
     stage("Deep Security Smart Check scan") {
       steps {
         smartcheckScan([
-            //imageName: "registry.example.com/my-project/my-image",
             imageName: "$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
             smartcheckHost: "$SMART_CHECK_HOSTNAME",
             smartcheckCredentialsId: SMART_CHECK_CREDENTIALS,
@@ -62,52 +51,6 @@ pipeline {
             ])
       }
     }
-/*
-    stage("Smart Check Scan") {
-        steps {
-            withCredentials([
-                usernamePassword([
-                    credentialsId: AWS_ECR_READ_CREDENTIALS,
-                    usernameVariable: "ACCESS_KEY_ID",
-                    passwordVariable: "SECRET_ACCESS_KEY",
-                ])             
-            ]){            
-                smartcheckScan([
-                    imageName: "$CONTAINER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
-                    smartcheckHost: "$SMART_CHECK_HOSTNAME",
-                    insecureSkipTLSVerify: true,
-                    smartcheckCredentialsId: SMART_CHECK_CREDENTIALS,
-                    imagePullAuth: new groovy.json.JsonBuilder([
-                        aws: [ 
-                            region: "us-east-1", 
-                            accessKeyID: ACCESS_KEY_ID, 
-                            secretAccessKey: SECRET_ACCESS_KEY
-                        ]
-                    ]).toString(),
-                    findingsThreshold: new groovy.json.JsonBuilder([
-                        malware: 0,
-                        vulnerabilities: [
-                            defcon1: 0,
-                            critical: 0,
-                            high: 0,
-                        ],
-                        contents: [
-                            defcon1: 0,
-                            critical: 0,
-                            high: 3,
-                        ],
-                        checklists: [
-                            defcon1: 0,
-                            critical: 0,
-                            high: 0,
-                        ],
-                    ]).toString(),
-                ])
-              }
-            }
-        }
-        
-*/
 
     stage ("Deploy to Cluster") {
       steps{
