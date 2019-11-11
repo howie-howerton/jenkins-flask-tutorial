@@ -20,7 +20,7 @@ RUN pip install -r requirements.txt
 
 # CONTENT OPTIONS - Enable or Disable the following RUN statements as desired
 # EICAR - Malware test file
-#RUN echo 'X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*' > eicar.txt
+RUN echo 'X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*' > eicar.txt
 
 # AWS credentials file
 RUN mkdir -p ~/.aws
