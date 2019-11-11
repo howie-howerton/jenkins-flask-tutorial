@@ -52,7 +52,7 @@ pipeline {
       }
     }
     
-    stage("Stage Image") {
+    stage("Stage Image in ECR") {
       steps{
         script {
           docker.withRegistry('https://$CONTAINER_REGISTRY', 'ecr:us-east-1:ecr-credentials' ) {
