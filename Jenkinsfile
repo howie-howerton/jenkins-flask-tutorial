@@ -15,10 +15,9 @@ pipeline {
     DOCKER_IMAGE_NAME =              "flask-docker"
     CONTAINER_REGISTRY =             "756757677343.dkr.ecr.us-east-1.amazonaws.com"
     CONTAINER_REGISTRY_CREDENTIALS = "ecr-credentials"
-    SMART_CHECK_HOSTNAME =           "internal-a0d5a1c41048a11ea8cf4122ca064977-975057365.us-east-1.elb.amazonaws.com"
+    SMART_CHECK_HOSTNAME =           "a645f47c9d59311e9b7120246f383e95-1289210322.us-east-1.elb.amazonaws.com"
     SMART_CHECK_CREDENTIALS =        "smart-check-jenkins-user"
     AWS_ECR_READ_CREDENTIALS =       "aws-ecr-read-credentials"
-    PRE_REGISTRY_AUTH =              "preregistry-auth"
     //KUBE_CONFIG =                    "kubeconfig"
    // KUBE_YML_FILE_IN_GIT_REPO =      "flask-docker-kube.yml"
   }
@@ -39,18 +38,60 @@ pipeline {
       }
     }
 
-    stage("Deep Security Smart Check scan") {
-      steps {
-        smartcheckScan([
-            imageName: "$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
-            smartcheckHost: "$SMART_CHECK_HOSTNAME",
-            smartcheckCredentialsId: SMART_CHECK_CREDENTIALS,
-            preregistryScan: true,
-            preregistryCredentialsId: PRE_REGISTRY_AUTH,
-            insecureSkipTLSVerify: true
-            ])
+    stage("Stage Image") {
+      steps{
+        script {
+          docker.withRegistry('https://$CONTAINER_REGISTRY', 'ecr:us-east-1:ecr-credentials' ) {
+            dockerImage.push()
+          }
+        }
       }
     }
+
+    stage("Smart Check Scan") {
+        steps {
+            withCredentials([
+                usernamePassword([
+                    credentialsId: AWS_ECR_READ_CREDENTIALS,
+                    usernameVariable: "ACCESS_KEY_ID",
+                    passwordVariable: "SECRET_ACCESS_KEY",
+                ])             
+            ]){            
+                smartcheckScan([
+                    imageName: "$CONTAINER_REGISTRY/$DOCKER_IMAGE_NAME:$BUILD_NUMBER",
+                    smartcheckHost: "$SMART_CHECK_HOSTNAME",
+                    insecureSkipTLSVerify: true,
+                    smartcheckCredentialsId: SMART_CHECK_CREDENTIALS,
+                    imagePullAuth: new groovy.json.JsonBuilder([
+                        aws: [ 
+                            region: "us-east-1", 
+                            accessKeyID: ACCESS_KEY_ID, 
+                            secretAccessKey: SECRET_ACCESS_KEY
+                        ]
+                    ]).toString(),
+                    findingsThreshold: new groovy.json.JsonBuilder([
+                        malware: 0,
+                        vulnerabilities: [
+                            defcon1: 0,
+                            critical: 0,
+                            high: 0,
+                        ],
+                        contents: [
+                            defcon1: 0,
+                            critical: 0,
+                            high: 3,
+                        ],
+                        checklists: [
+                            defcon1: 0,
+                            critical: 0,
+                            high: 0,
+                        ],
+                    ]).toString(),
+                ])
+              }
+            }
+        }
+        
 
     stage ("Deploy to Cluster") {
       steps{
