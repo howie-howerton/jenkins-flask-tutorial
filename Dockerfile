@@ -1,14 +1,14 @@
 #FROM imiell/bad-dockerfile
-#FROM registry.access.redhat.com/rhel7:7.5-409               
+FROM registry.access.redhat.com/rhel7:7.5-409               
 #FROM ubuntu:latest
-FROM python:3.7-alpine
+#FROM python:3.7-alpine
 # The python:3.7-alpine is the 'good' image :)
 
 LABEL maintainer="howie_howerton@trendmicro.com"
 
 # Enable or Disable the following RUN statements according to the FROM statement used above.
-#RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py    # enable/disable with rhel7
-#RUN python get-pip.py                                          # enable/disable with rhel7
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py    # enable/disable with rhel7
+RUN python get-pip.py                                          # enable/disable with rhel7
 #RUN apt-get update -y                                         # enable/disable with ubuntu:latest
 #RUN apt upgrade -y                                            # enable/disable with ubuntu:latest
 #RUN apt-get install -y python-pip python-dev build-essential  # enable/disable with ubuntu:latest
