@@ -15,7 +15,7 @@ pipeline {
     DOCKER_IMAGE_NAME =              "flask-docker"
     CONTAINER_REGISTRY =             "756757677343.dkr.ecr.us-east-1.amazonaws.com"
     CONTAINER_REGISTRY_CREDENTIALS = "ecr-credentials"
-    SMART_CHECK_HOSTNAME =           "https://internal-a52b4963e1b9511eaa8c7021541cc153-1403828315.us-east-1.elb.amazonaws.com"
+    SMART_CHECK_HOSTNAME =           "internal-a52b4963e1b9511eaa8c7021541cc153-1403828315.us-east-1.elb.amazonaws.com"
     SMART_CHECK_CREDENTIALS =        "smart-check-jenkins-user"
     AWS_ECR_READ_CREDENTIALS =       "aws-ecr-read-credentials"
     PRE_REGISTRY_AUTH =              "preregistry-auth"
