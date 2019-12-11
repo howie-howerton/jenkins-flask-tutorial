@@ -23,10 +23,7 @@ RUN pip install -r requirements.txt
 #RUN echo 'X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*' > eicar.txt
 
 # AWS credentials file
-#RUN mkdir -p ~/.aws
-#RUN echo '[default]' >> ~/.aws/credentials
-#RUN echo 'aws_access_key_id = AKIA3AMSFYUPYXABC123' >> ~/.aws/credentials
-#RUN echo 'aws_secret_access_key = Ucck2xPPNKx84W+OWhLYtI7LpNj0kwz7MlABC123' >> ~/.aws/credentials
+
 
 # Run the Flask application
 ENTRYPOINT ["python"]
